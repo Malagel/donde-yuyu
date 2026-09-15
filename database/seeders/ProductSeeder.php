@@ -20,15 +20,15 @@ class ProductSeeder extends Seeder
 
         Product::create([
             'name' => 'Longaniza Ahumado en Roble',
-            'description' => 'Ahumado artesanal lento con leña de roble, sabor profundo.',
+            'description' => 'Ahumado artesanal lento con leña de roble del patio de Yuyú, sabor profundo.',
             'price' => 7490,
             'stock' => 99,
             'image' => null,
         ]);
 
         Product::create([
-            'name' => 'Longaniza Picante al Merquén',
-            'description' => 'Con toque de merquén ahumado y ají cacho de cabra.',
+            'name' => 'Longaniza Picante Yuyástica',
+            'description' => 'Con toque de merquén ahumado y amor de abuela.',
             'price' => 7490,
             'stock' => 99,
             'image' => null,
