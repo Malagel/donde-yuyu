@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Donde Yuyu</title>
+    <title>Donde Yuyú</title>
 </head>
 <header>
     @auth
@@ -11,7 +11,7 @@
         @if (Auth::user()->is_admin)
             | <a href="/admin"><strong>Panel Admin</strong></a>
         @endif
-        
+
         <form action="/logout" method="POST" style="display: inline;">
             @csrf
             <button type="submit">Cerrar Sesión</button>

@@ -13,13 +13,13 @@
 
     <hr>
 
-    <h1>Estadísticas</h1>
+    <h1>Estadísticas Yuyú</h1>
 
     <div style="margin-bottom: 15px;">
         <a href="/admin/export/csv"><button type="button">Descargar Excel (CSV)</button></a>
         <a href="/admin/export/pdf"><button type="button">Descargar Reporte PDF</button></a>
     </div>
-    
+
     <ul>
         <li><strong>Ingresos Totales:</strong> ${{ number_format($totalRevenue, 0, ',', '.') }}</li>
         <li><strong>Total de Pedidos:</strong> {{ $totalOrders }}</li>
