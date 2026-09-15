@@ -8,11 +8,18 @@
 ## Instalación y Configuración
 
 ```bash
-   git clone [https://github.com/tu-usuario/tu-repo.git](https://github.com/tu-usuario/tu-repo.git)
-   cd tu-repo
+   git clone https://github.com/Malagel/donde-yuyu.git
+   cd donde-yuyu
+
    composer install
    cp .env.example .env
+
    php artisan key:generate
    php artisan migrate:fresh --seed
+
    php artisan serve
-   ```
+```
+
+## Usuario admin:
+- email: admin@test.com
+- contraseña: 1234
