@@ -46,6 +46,9 @@
     <p>
         <a href="/register">Registrarse</a>
     </p>
+    <p>
+        <a href="/auth/google/redirect">Continuar con Google</a>
+    </p>
 
     <p>
         <a href="/">Volver a la tienda</a>
