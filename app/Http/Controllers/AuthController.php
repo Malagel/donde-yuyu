@@ -49,19 +49,26 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ], [
+            'name.required'       => 'El nombre es obligatorio.',
+            'email.required'      => 'El correo electrónico es obligatorio.',
+            'email.email'         => 'Ingresa un correo electrónico válido.',
+            'email.unique'        => 'Este correo ya se encuentra registrado.',
+            'password.required'   => 'La contraseña es obligatoria.',
+            'password.min'        => 'La contraseña debe tener al menos 6 caracteres.',
+            'password.confirmed'  => 'Las contraseñas no coinciden.',
         ]);
 
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
 
         Auth::login($user);
-
         $request->session()->regenerate();
 
         return redirect('/');
@@ -79,6 +86,7 @@ class AuthController extends Controller
         $adminEmails = [
             'nimariangelr@gmail.com',
             'rafael.mellado@pucv.cl',
+            'camila.pintopk@gmail.com',
         ];
 
         $user = User::where('google_id', $googleUser->getId())->orWhere('email', $googleUser->getEmail())->first();

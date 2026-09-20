@@ -78,22 +78,34 @@ class CartController extends Controller
             $total += $item['price'] * $item['quantity'];
         }
 
-        DB::transaction(function () use ($cart, $total) {
-            $order = Order::create([
-                'user_id'      => Auth::id(),
-                'total_amount' => $total,
-                'status'       => 'completed',
-            ]);
-
-            foreach ($cart as $productId => $item) {
-                OrderItem::create([
-                    'order_id'   => $order->id,
-                    'product_id' => $productId,
-                    'price'      => $item['price'],
-                    'quantity'   => $item['quantity'],
+        try {
+            DB::transaction(function () use ($cart, $total) {
+                $order = Order::create([
+                    'user_id'      => Auth::id(),
+                    'total_amount' => $total,
+                    'status'       => 'completed',
                 ]);
-            }
-        });
+
+                foreach ($cart as $productId => $item) {
+                    $product = Product::lockForUpdate()->findOrFail($productId);
+
+                    if ($product->stock < $item['quantity']) {
+                        throw new \Exception("Stock insuficiente para: {$product->name}. Quedan {$product->stock} unidad(es).");
+                    }
+
+                    $product->decrement('stock', $item['quantity']);
+
+                    OrderItem::create([
+                        'order_id'   => $order->id,
+                        'product_id' => $productId,
+                        'price'      => $item['price'],
+                        'quantity'   => $item['quantity'],
+                    ]);
+                }
+            });
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
 
         session()->forget('cart');
 
